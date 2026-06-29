@@ -3,502 +3,392 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>คู่มือคนขับ · SSB Smart Supply</title>
+<title>วิดีโอแนะนำคนขับ · SSB Smart Supply</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@500;600;700&family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --green-deep:#1c3a2a; --green:#3f7d4f; --green-soft:#e7f1e8;
+    --green-deep:#102a1d; --green:#3f7d4f; --green-soft:#e7f1e8;
     --amber:#e8920c; --amber-soft:#fdf0d9; --cream:#fbf7ef;
-    --ink:#20231d; --ink-soft:#5d6356; --line:#e7e2d6; --white:#fff;
-    --brown:#7B4F2E; --shadow:0 8px 24px rgba(28,58,42,.10);
+    --ink:#20231d; --ink-soft:#5d6356; --line:#e7e2d6; --white:#fff; --brown:#7B4F2E;
   }
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-  html,body{height:100%}
-  body{font-family:'Sarabun',-apple-system,'Noto Sans Thai',sans-serif;background:var(--cream);color:var(--ink);font-size:17px;line-height:1.6;overflow-x:hidden}
-  .app{max-width:480px;margin:0 auto;min-height:100%;display:flex;flex-direction:column;position:relative}
+  html,body{height:100%;overflow:hidden}
+  body{font-family:'Sarabun',-apple-system,'Noto Sans Thai',sans-serif;background:#06120c}
+  .player{max-width:480px;height:100%;margin:0 auto;position:relative;display:flex;flex-direction:column;
+    background:radial-gradient(120% 90% at 50% 0,#1a3826,#0a1a11 70%);color:#fff;overflow:hidden}
 
-  .top{position:sticky;top:0;z-index:50;background:var(--green-deep);color:#fff;padding:14px 18px 10px}
-  .top-row{display:flex;align-items:center;justify-content:space-between;gap:10px}
-  .brand{display:flex;align-items:center;gap:9px;font-family:'Kanit';font-weight:600;font-size:16px}
-  .brand .dot{width:26px;height:26px;border-radius:8px;background:var(--amber);display:grid;place-items:center;font-size:15px}
-  .menu-btn{background:rgba(255,255,255,.12);border:none;color:#fff;width:38px;height:38px;border-radius:10px;font-size:18px;cursor:pointer;display:grid;place-items:center}
-  .menu-btn:active{background:rgba(255,255,255,.24)}
-  .progress{margin-top:11px;height:6px;border-radius:99px;background:rgba(255,255,255,.16);overflow:hidden}
-  .progress > i{display:block;height:100%;background:var(--amber);border-radius:99px;width:0;transition:width .35s cubic-bezier(.4,0,.2,1)}
-  .pmeta{display:flex;justify-content:space-between;margin-top:7px;font-size:12.5px;color:rgba(255,255,255,.72)}
-  .pmeta b{color:#fff;font-weight:600}
+  /* top bar */
+  .pbar{padding:13px 16px 0;flex:0 0 auto;z-index:5}
+  .pbar-row{display:flex;align-items:center;justify-content:space-between;font-size:12px}
+  .pbar-brand{display:flex;align-items:center;gap:8px;font-family:'Kanit';font-weight:600;font-size:14px}
+  .pbar-brand .d{width:23px;height:23px;border-radius:7px;background:var(--amber);display:grid;place-items:center;font-size:13px}
+  .pbar-count{color:rgba(255,255,255,.6);font-family:'Kanit';font-weight:600}
+  .track{margin-top:10px;height:4px;border-radius:99px;background:rgba(255,255,255,.14);overflow:hidden}
+  .track > i{display:block;height:100%;background:var(--amber);border-radius:99px;width:0;transition:width .5s ease}
 
-  .stage{flex:1;padding:20px 18px 120px}
-  .card{background:var(--white);border-radius:22px;box-shadow:var(--shadow);padding:24px 20px 22px;animation:rise .42s cubic-bezier(.2,.7,.3,1) both}
-  @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  /* stage */
+  .vArea{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:12px 18px;overflow:hidden;position:relative}
+  .kicker{flex:0 0 auto;font-family:'Kanit';font-weight:600;font-size:13px;letter-spacing:.5px;color:var(--amber);background:rgba(232,146,12,.13);padding:6px 15px;border-radius:99px;margin-bottom:14px;text-align:center;animation:fade .5s both}
+  .vInner{width:100%;animation:fade .55s both}
+  @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 
-  .eyebrow{display:inline-flex;align-items:center;gap:7px;font-family:'Kanit';font-weight:600;font-size:12.5px;letter-spacing:.6px;color:var(--green);background:var(--green-soft);padding:5px 12px;border-radius:99px}
-  .stepno{font-family:'Kanit';font-weight:700;font-size:13px;color:var(--amber)}
-  .icon-wrap{margin:18px 0 6px;width:74px;height:74px;border-radius:20px;display:grid;place-items:center;font-size:38px;background:var(--amber-soft)}
-  h1.title{font-family:'Kanit';font-weight:700;font-size:25px;line-height:1.25;color:var(--green-deep);margin-top:8px}
-  .lead{color:var(--ink-soft);margin-top:8px;font-size:16px}
+  /* subtitle + controls */
+  .subwrap{flex:0 0 auto;padding:0 16px;z-index:5}
+  .voicebar{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:9px}
+  .vlabel{font-size:11px;color:rgba(255,255,255,.55);font-family:'Kanit';font-weight:600;white-space:nowrap}
+  .vsel{max-width:200px;background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.18);border-radius:9px;padding:5px 9px;font-size:12px;font-family:'Sarabun';outline:none}
+  .vsel option{color:#111}
+  .cc{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-family:'Kanit';font-weight:700;color:rgba(255,255,255,.55);margin:0 auto 6px;border:1px solid rgba(255,255,255,.22);padding:1px 7px;border-radius:5px}
+  .sub{background:rgba(8,16,11,.72);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:13px 16px;font-size:16px;line-height:1.55;text-align:center;min-height:64px;display:flex;align-items:center;justify-content:center;font-weight:500}
+  .ctrls{display:flex;align-items:center;justify-content:center;gap:8px;padding:14px 0 calc(16px + env(safe-area-inset-bottom))}
+  .cbtn{background:rgba(255,255,255,.1);border:none;color:#fff;width:48px;height:48px;border-radius:14px;font-size:20px;cursor:pointer;display:grid;place-items:center;transition:transform .12s,background .2s}
+  .cbtn:active{transform:scale(.92)}
+  .cbtn.play{width:66px;height:66px;border-radius:20px;background:var(--amber);color:#1c1100;font-size:27px;box-shadow:0 8px 22px rgba(232,146,12,.36)}
 
-  .dolist{list-style:none;margin:20px 0 0;display:flex;flex-direction:column;gap:13px}
-  .dolist li{display:flex;gap:12px;align-items:flex-start}
-  .dolist .ck{flex:0 0 26px;width:26px;height:26px;border-radius:9px;background:var(--green);color:#fff;display:grid;place-items:center;font-size:14px;font-weight:700;font-family:'Kanit';margin-top:1px}
-  .dolist .tx{flex:1;font-size:16px;line-height:1.55}
-  .dolist .tx b{color:var(--green-deep);font-weight:600}
+  /* start overlay */
+  .overlay{position:absolute;inset:0;z-index:30;background:radial-gradient(120% 90% at 50% 40%,#1c3826,#081710);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px;gap:18px}
+  .overlay.hide{display:none}
+  .ov-logo{font-family:'Kanit';font-weight:700;font-size:13px;letter-spacing:1px;color:var(--amber);background:rgba(232,146,12,.14);padding:6px 16px;border-radius:99px}
+  .ov-title{font-family:'Kanit';font-weight:700;font-size:29px;line-height:1.2}
+  .ov-sub{color:rgba(255,255,255,.72);font-size:15px;max-width:300px;line-height:1.6}
+  .ov-play{margin-top:6px;width:84px;height:84px;border-radius:26px;background:var(--amber);color:#1c1100;font-size:36px;display:grid;place-items:center;border:none;cursor:pointer;box-shadow:0 12px 30px rgba(232,146,12,.4);transition:transform .15s}
+  .ov-play:active{transform:scale(.94)}
+  .ov-note{font-size:12.5px;color:rgba(255,255,255,.5);display:flex;align-items:center;gap:6px}
 
-  .tip{margin-top:20px;background:var(--amber-soft);border:1px solid #f3dcae;border-radius:15px;padding:13px 15px;display:flex;gap:11px}
-  .tip .ti{flex:0 0 auto;font-size:19px}
-  .tip .tt{font-size:15px;line-height:1.55;color:#7a5410}
-  .tip .tt b{color:#5d3f08}
-  .pill{display:inline-block;font-size:13px;font-weight:600;font-family:'Kanit';padding:3px 11px;border-radius:99px;margin:0 4px 4px 0}
-  .pill.g{background:var(--green-soft);color:var(--green)}
-  .pill.a{background:var(--amber-soft);color:#a96a06}
-  .optional{margin-top:14px;font-size:13.5px;color:var(--ink-soft);background:#f4f1e7;border-radius:12px;padding:10px 13px}
-
-  /* ── Phone mockups ── */
-  .mock{margin-top:18px;border-radius:18px;overflow:hidden;border:1px solid var(--line);box-shadow:0 4px 14px rgba(28,58,42,.08);background:#fff}
-  .mock-cap{margin-top:9px;font-size:12px;color:var(--ink-soft);text-align:center}
+  /* ===== shared mock styles (เหมือนในคู่มือ) ===== */
+  .mock{border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 10px 30px rgba(0,0,0,.35);background:#fff;color:var(--ink)}
   .mm-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#d9ceb0}
-  .mm-tile{background:#fff;min-height:92px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;position:relative;padding:6px 4px}
-  .mm-ic{font-size:25px;line-height:1}
-  .mm-th{font-family:'Kanit';font-weight:600;font-size:12px;color:#4e7a3e;text-align:center;line-height:1.12}
-  .mm-en{font-size:7px;letter-spacing:.7px;color:#a6b894;font-weight:700}
-  .mm-tile.hl{box-shadow:inset 0 0 0 3px var(--amber);background:#fffaf0;z-index:2;animation:pulse 1.6s ease-in-out infinite}
-  @keyframes pulse{0%,100%{box-shadow:inset 0 0 0 3px var(--amber)}50%{box-shadow:inset 0 0 0 3px var(--amber),0 0 0 4px rgba(232,146,12,.18)}}
-  .mm-tag{position:absolute;top:-7px;right:-3px;background:var(--amber);color:#3a2400;font-family:'Kanit';font-weight:700;font-size:9.5px;padding:2px 7px;border-radius:99px;white-space:nowrap;box-shadow:0 2px 6px rgba(0,0,0,.18);z-index:3}
-  .mm-bar{background:#e7dfc9;display:flex;align-items:center;padding:9px 14px;gap:10px}
-  .mm-kb{width:30px;height:23px;border-radius:6px;background:#f3eede;display:grid;place-items:center;font-size:12px}
-  .mm-menu{flex:1;text-align:center;font-family:'Kanit';font-weight:600;color:#5d6356;font-size:15px}
+  .mm-tile{background:#fff;min-height:84px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;position:relative;padding:6px 4px}
+  .mm-ic{font-size:24px;line-height:1}
+  .mm-th{font-family:'Kanit';font-weight:600;font-size:11.5px;color:#4e7a3e;text-align:center;line-height:1.12}
+  .mm-en{font-size:6.5px;letter-spacing:.6px;color:#a6b894;font-weight:700}
+  .mm-tile.hl{box-shadow:inset 0 0 0 3px var(--amber);background:#fffaf0;z-index:2;animation:pulse 1.4s ease-in-out infinite}
+  @keyframes pulse{0%,100%{box-shadow:inset 0 0 0 3px var(--amber)}50%{box-shadow:inset 0 0 0 3px var(--amber),0 0 0 5px rgba(232,146,12,.22)}}
+  .mm-tag{position:absolute;top:-7px;right:-3px;background:var(--amber);color:#3a2400;font-family:'Kanit';font-weight:700;font-size:9px;padding:2px 7px;border-radius:99px;white-space:nowrap;box-shadow:0 2px 6px rgba(0,0,0,.25);z-index:3}
+  .mm-bar{background:#e7dfc9;display:flex;align-items:center;padding:8px 13px;gap:9px}
+  .mm-kb{width:28px;height:21px;border-radius:6px;background:#f3eede;display:grid;place-items:center;font-size:11px}
+  .mm-menu{flex:1;text-align:center;font-family:'Kanit';font-weight:600;color:#5d6356;font-size:14px}
 
-  /* form mockup */
-  .fm{padding:14px}
-  .fm-lbl{font-family:'Kanit';font-weight:600;font-size:12.5px;color:var(--green);margin:13px 0 7px;display:flex;align-items:center;gap:6px}
+  .fm{padding:13px}
+  .fm-lbl{font-family:'Kanit';font-weight:600;font-size:12px;color:var(--green);margin:11px 0 6px;display:flex;align-items:center;gap:6px}
   .fm-lbl:first-child{margin-top:0}
-  .fm-photo{border:2px dashed #cdd6c6;border-radius:12px;padding:13px;display:flex;align-items:center;gap:11px;background:#fafcf8;margin-bottom:8px}
-  .fm-photo .pi{font-size:21px}
-  .fm-photo .pt{font-size:13px;color:var(--ink-soft);font-weight:500;flex:1;line-height:1.3}
-  .fm-ocr{font-family:'Kanit';font-weight:700;font-size:12.5px;color:#fff;background:var(--green);padding:3px 9px;border-radius:8px;white-space:nowrap}
-  .fm-weigh{border:1px solid #f0d9a8;background:var(--amber-soft);border-radius:12px;padding:11px 12px;margin-bottom:8px}
-  .fm-weigh .wt{font-family:'Kanit';font-weight:600;font-size:12.5px;color:#a96a06;display:flex;align-items:center;gap:6px;margin-bottom:8px}
-  .fm-chips{display:flex;gap:6px;flex-wrap:wrap}
-  .fm-chip{background:#fff;border:1px solid #f0d9a8;border-radius:8px;padding:4px 9px;font-size:12px;color:#7a5410;font-weight:600}
+  .fm-photo{border:2px dashed #cdd6c6;border-radius:11px;padding:11px;display:flex;align-items:center;gap:10px;background:#fafcf8;margin-bottom:7px}
+  .fm-photo .pi{font-size:19px}
+  .fm-photo .pt{font-size:12.5px;color:var(--ink-soft);font-weight:500;flex:1;line-height:1.3}
+  .fm-ocr{font-family:'Kanit';font-weight:700;font-size:12px;color:#fff;background:var(--green);padding:3px 8px;border-radius:7px;white-space:nowrap}
+  .fm-weigh{border:1px solid #f0d9a8;background:var(--amber-soft);border-radius:11px;padding:10px 11px;margin-bottom:7px}
+  .fm-weigh .wt{font-family:'Kanit';font-weight:600;font-size:12px;color:#a96a06;display:flex;align-items:center;gap:6px;margin-bottom:7px}
+  .fm-chips{display:flex;gap:5px;flex-wrap:wrap}
+  .fm-chip{background:#fff;border:1px solid #f0d9a8;border-radius:7px;padding:4px 8px;font-size:11.5px;color:#7a5410;font-weight:600}
   .fm-chip b{color:#5d3f08;font-family:'Kanit'}
-  .fm-row{display:flex;gap:8px}
-  .fm-input{flex:1;border:1px solid var(--line);border-radius:10px;padding:8px 11px;font-size:14px;color:#a4a999;background:#fff}
-  .fm-input b{display:block;font-size:10px;color:var(--green);font-family:'Kanit';font-weight:600;margin-bottom:2px}
-  .fm-btn{margin-top:14px;border-radius:12px;padding:13px;text-align:center;font-family:'Kanit';font-weight:700;font-size:15px;color:#fff}
+  .fm-row{display:flex;gap:7px}
+  .fm-input{flex:1;border:1px solid var(--line);border-radius:9px;padding:7px 10px;font-size:13px;color:#a4a999;background:#fff}
+  .fm-input b{display:block;font-size:9.5px;color:var(--green);font-family:'Kanit';font-weight:600;margin-bottom:2px}
+  .fm-btn{margin-top:12px;border-radius:11px;padding:12px;text-align:center;font-family:'Kanit';font-weight:700;font-size:14px;color:#fff}
   .fm-btn.green{background:var(--green)}
   .fm-btn.brown{background:var(--brown)}
-  .fm-note{background:#f4f1e7;border-radius:10px;padding:9px 12px;font-size:12px;color:var(--ink-soft);margin-bottom:8px;line-height:1.5}
-  .fm-gps{border:1px solid #cfe0d2;background:#eef6ef;border-radius:11px;padding:10px 12px;margin-bottom:8px}
-  .fm-gps-top{display:flex;justify-content:space-between;align-items:center;font-family:'Kanit';font-weight:600;font-size:12px;color:var(--green)}
-  .fm-gps-tag{background:var(--green);color:#fff;font-size:9px;font-weight:700;padding:1px 7px;border-radius:6px}
-  .fm-gps-val{font-family:'Kanit';font-weight:700;font-size:18px;color:var(--green-deep);margin:3px 0 7px}
-  .fm-gps-btn{background:#d9ead9;color:var(--green-deep);font-family:'Kanit';font-weight:600;font-size:12px;text-align:center;padding:7px;border-radius:8px}
-  .fm-load-lbl{font-family:'Kanit';font-weight:600;font-size:12px;color:var(--green);margin:10px 0 6px}
-  .fm-load{display:flex;gap:7px}
-  .fm-load-chip{flex:1;text-align:center;border:1.5px solid var(--line);border-radius:9px;padding:8px;font-size:12.5px;font-weight:600;color:var(--ink-soft);background:#fff}
+  .fm-note{background:#f4f1e7;border-radius:9px;padding:8px 11px;font-size:11.5px;color:var(--ink-soft);margin-bottom:7px;line-height:1.5}
+  .fm-gps{border:1px solid #cfe0d2;background:#eef6ef;border-radius:10px;padding:9px 11px;margin-bottom:7px}
+  .fm-gps-top{display:flex;justify-content:space-between;align-items:center;font-family:'Kanit';font-weight:600;font-size:11.5px;color:var(--green)}
+  .fm-gps-tag{background:var(--green);color:#fff;font-size:8.5px;font-weight:700;padding:1px 6px;border-radius:6px}
+  .fm-gps-val{font-family:'Kanit';font-weight:700;font-size:17px;color:var(--green);margin:3px 0 6px}
+  .fm-gps-btn{background:#d9ead9;color:#1c3a2a;font-family:'Kanit';font-weight:600;font-size:11.5px;text-align:center;padding:6px;border-radius:8px}
+  .fm-load-lbl{font-family:'Kanit';font-weight:600;font-size:11.5px;color:var(--green);margin:9px 0 5px}
+  .fm-load{display:flex;gap:6px}
+  .fm-load-chip{flex:1;text-align:center;border:1.5px solid var(--line);border-radius:9px;padding:7px;font-size:12px;font-weight:600;color:var(--ink-soft);background:#fff}
   .fm-load-chip.on.green{background:#e7f4e9;border-color:var(--green);color:var(--green)}
   .fm-load-chip.on.orange{background:#fdeccc;border-color:var(--amber);color:#a96a06}
 
-  /* hero */
-  .hero{padding:30px 22px 26px;background:linear-gradient(160deg,var(--green-deep),#2a523a);border-radius:24px;color:#fff;box-shadow:var(--shadow);animation:rise .42s cubic-bezier(.2,.7,.3,1) both}
-  .hero .badge{display:inline-block;font-family:'Kanit';font-weight:600;font-size:12px;letter-spacing:.8px;background:var(--amber);color:#3a2400;padding:5px 13px;border-radius:99px}
-  .hero h1{font-family:'Kanit';font-weight:700;font-size:29px;line-height:1.18;margin-top:16px}
-  .hero p{color:rgba(255,255,255,.8);margin-top:12px;font-size:16px}
-  .journey{margin-top:24px;display:flex;align-items:center;gap:6px}
-  .journey .node{flex:0 0 auto;text-align:center;font-size:11px;color:rgba(255,255,255,.7);font-family:'Kanit';font-weight:500}
-  .journey .node .b{width:34px;height:34px;border-radius:11px;background:rgba(255,255,255,.13);display:grid;place-items:center;font-size:17px;margin:0 auto 5px}
-  .journey .seg{flex:1;height:2px;background:rgba(255,255,255,.2);border-radius:9px}
+  /* title / simpletext / end cards */
+  .panel{text-align:center;padding:10px}
+  .panel .pic{font-size:54px;margin-bottom:14px}
+  .panel h2{font-family:'Kanit';font-weight:700;font-size:26px;line-height:1.2}
+  .panel .ps{color:rgba(255,255,255,.78);font-size:15px;margin-top:10px;line-height:1.55}
+  .ministeps{margin:18px auto 0;max-width:330px;display:flex;flex-direction:column;gap:9px;text-align:left}
+  .ministeps div{display:flex;gap:10px;align-items:center;font-size:14.5px;color:rgba(255,255,255,.92);background:rgba(255,255,255,.06);border-radius:11px;padding:9px 12px}
+  .ministeps .mn{flex:0 0 23px;width:23px;height:23px;border-radius:7px;background:rgba(232,146,12,.22);color:var(--amber);font-family:'Kanit';font-weight:700;font-size:12px;display:grid;place-items:center}
+  .vt-chip{background:rgba(232,146,12,.18);color:var(--amber);font-family:'Kanit';font-weight:600;font-size:11px;padding:2px 8px;border-radius:7px;white-space:nowrap}
 
-  .nav{position:fixed;bottom:0;left:0;right:0;z-index:40;max-width:480px;margin:0 auto;padding:14px 18px calc(14px + env(safe-area-inset-bottom));background:linear-gradient(to top,var(--cream) 72%,rgba(251,247,239,0));display:flex;gap:11px}
-  .btn{flex:1;border:none;border-radius:15px;font-family:'Kanit';font-weight:600;font-size:17px;padding:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;transition:transform .12s}
-  .btn:active{transform:scale(.97)}
-  .btn.prev{flex:0 0 auto;width:58px;background:var(--white);color:var(--green-deep);box-shadow:var(--shadow);font-size:20px}
-  .btn.next{background:var(--green);color:#fff;box-shadow:0 8px 20px rgba(63,125,79,.32)}
-  .btn.next.start{background:var(--amber);box-shadow:0 8px 20px rgba(232,146,12,.32)}
-  .btn:disabled{opacity:.4;pointer-events:none}
-
-  .scrim{position:fixed;inset:0;background:rgba(20,30,22,.5);z-index:60;opacity:0;pointer-events:none;transition:opacity .25s}
-  .scrim.on{opacity:1;pointer-events:auto}
-  .drawer{position:fixed;top:0;right:0;bottom:0;z-index:61;width:84%;max-width:360px;background:var(--cream);transform:translateX(100%);transition:transform .3s cubic-bezier(.3,.7,.3,1);overflow-y:auto;padding:20px 16px calc(24px + env(safe-area-inset-bottom))}
-  .drawer.on{transform:none}
-  .drawer h3{font-family:'Kanit';font-weight:700;font-size:18px;color:var(--green-deep);padding:6px 8px 14px;display:flex;justify-content:space-between;align-items:center}
-  .drawer h3 button{background:none;border:none;font-size:24px;color:var(--ink-soft);cursor:pointer}
-  .mitem{display:flex;gap:13px;align-items:center;padding:13px 12px;border-radius:14px;cursor:pointer;margin-bottom:3px}
-  .mitem:active{background:var(--green-soft)}
-  .mitem.active{background:var(--white);box-shadow:var(--shadow)}
-  .mitem .mn{flex:0 0 30px;width:30px;height:30px;border-radius:9px;background:var(--green-soft);color:var(--green);font-family:'Kanit';font-weight:700;font-size:14px;display:grid;place-items:center}
-  .mitem.active .mn{background:var(--amber);color:#fff}
-  .mitem .ml{flex:1;font-size:15px;font-weight:500;line-height:1.35}
-  .mitem .ml small{display:block;color:var(--ink-soft);font-size:12px;font-weight:400}
-
-  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  @media (prefers-reduced-motion:reduce){.mm-tile.hl{animation:none}}
 </style>
 </head>
 <body>
-<div class="app">
-  <div class="top">
-    <div class="top-row">
-      <div class="brand"><span class="dot">🚛</span> SSB Smart Supply</div>
-      <button class="menu-btn" onclick="openMenu()" aria-label="เมนูขั้นตอน">☰</button>
+<div class="player">
+  <div class="pbar">
+    <div class="pbar-row">
+      <div class="pbar-brand"><span class="d">🚛</span> คู่มือคนขับ</div>
+      <div class="pbar-count" id="count"></div>
     </div>
-    <div class="progress"><i id="bar"></i></div>
-    <div class="pmeta"><span id="phaseLabel">คู่มือคนขับ</span><span><b id="stepCur">เริ่ม</b><span id="stepTot"></span></span></div>
+    <div class="track"><i id="track"></i></div>
   </div>
 
-  <div class="stage"><div id="view"></div></div>
-
-  <div class="nav">
-    <button class="btn prev" id="btnPrev" onclick="go(-1)" aria-label="ย้อนกลับ">‹</button>
-    <button class="btn next start" id="btnNext" onclick="go(1)"></button>
+  <div class="vArea">
+    <div class="kicker" id="kicker"></div>
+    <div class="vInner" id="vInner"></div>
   </div>
 
-  <div class="scrim" id="scrim" onclick="closeMenu()"></div>
-  <nav class="drawer" id="drawer" aria-label="รายการขั้นตอน">
-    <h3>ขั้นตอนทั้งหมด <button onclick="closeMenu()" aria-label="ปิด">×</button></h3>
-    <div id="menuList"></div>
-  </nav>
+  <div class="subwrap">
+    <div class="voicebar"><span class="vlabel">🗣️ เสียงพากย์ (ชาย)</span><select id="voiceSel" class="vsel" onchange="pickVoice(this.value)"></select></div>
+    <div style="text-align:center"><span class="cc">● CC คำบรรยาย</span></div>
+    <div class="sub" id="sub"></div>
+    <div class="ctrls">
+      <button class="cbtn" onclick="restart()" aria-label="เริ่มใหม่">⟲</button>
+      <button class="cbtn" onclick="prev()" aria-label="ก่อนหน้า">⏮</button>
+      <button class="cbtn play" id="playBtn" onclick="togglePlay()" aria-label="เล่น/หยุด">▶</button>
+      <button class="cbtn" onclick="next()" aria-label="ถัดไป">⏭</button>
+      <button class="cbtn" id="spdBtn" onclick="cycleSpeed()" aria-label="ความเร็ว" style="font-size:14px;font-family:'Kanit';font-weight:700">1x</button>
+      <button class="cbtn" id="muteBtn" onclick="toggleMute()" aria-label="เสียง">🔊</button>
+    </div>
+  </div>
+
+  <div class="overlay" id="overlay">
+    <div class="ov-logo">SSB SMART SUPPLY</div>
+    <div class="ov-title">วิดีโอแนะนำคนขับรถ</div>
+    <div class="ov-sub">วิ่งงานครบทุกขั้นตอน ตั้งแต่รับงานจนปิดงาน พร้อมเสียงพากย์และคำบรรยาย</div>
+    <button class="ov-play" onclick="startVideo()" aria-label="เริ่มเล่น">▶</button>
+    <div class="ov-note">🔊 เปิดเสียงในเครื่องเพื่อฟังเสียงพากย์</div>
+  </div>
 </div>
 
 <script>
-// ── เมนูจริง 6 ปุ่ม ──
 const MENU = [
-  {ic:'📋', th:'รับงาน',            en:'ACCEPT JOB'},
-  {ic:'📍', th:'อัปเดตงานว่าง',     en:'AVAILABLE JOBS'},
-  {ic:'🕘', th:'ประวัติงาน',        en:'JOB HISTORY'},
-  {ic:'⏰', th:'ลงเวลา เข้า-ออก',   en:'TIME CLOCK'},
+  {ic:'📋', th:'รับงาน', en:'ACCEPT JOB'},
+  {ic:'📍', th:'อัปเดตงานว่าง', en:'AVAILABLE JOBS'},
+  {ic:'🕘', th:'ประวัติงาน', en:'JOB HISTORY'},
+  {ic:'⏰', th:'ลงเวลา เข้า-ออก', en:'TIME CLOCK'},
   {ic:'🔔', th:'แจ้งลา / แจ้งซ่อม', en:'LEAVE / REPAIR'},
-  {ic:'🗒️', th:'สรุปงาน',          en:'JOB SUMMARY'}
+  {ic:'🗒️', th:'สรุปงาน', en:'JOB SUMMARY'}
 ];
-
-// ── mockup renderers ──
 function menuMock(hl){
-  const set = (hl==null||hl==='all') ? null : (Array.isArray(hl)?hl:[hl]);
-  const tiles = MENU.map(m=>{
-    const on = set && set.includes(m.th);
-    return `<div class="mm-tile ${on?'hl':''}">
-      ${on?'<span class="mm-tag">👆 กดปุ่มนี้</span>':''}
-      <div class="mm-ic">${m.ic}</div><div class="mm-th">${m.th}</div><div class="mm-en">${m.en}</div>
-    </div>`;
-  }).join('');
-  return `<div class="mock"><div class="mm-grid">${tiles}</div>
-    <div class="mm-bar"><div class="mm-kb">⌨️</div><div class="mm-menu">เมนู ▾</div></div></div>
-    <div class="mock-cap">ภาพเมนูจริงในไลน์ · ${set?'กดปุ่มที่ไฮไลต์สีส้ม':'เมนูหลักของคนขับ'}</div>`;
+  const set=(hl==null||hl==='all')?null:(Array.isArray(hl)?hl:[hl]);
+  const tiles=MENU.map(m=>{const on=set&&set.includes(m.th);
+    return `<div class="mm-tile ${on?'hl':''}">${on?'<span class="mm-tag">👆 กดปุ่มนี้</span>':''}<div class="mm-ic">${m.ic}</div><div class="mm-th">${m.th}</div><div class="mm-en">${m.en}</div></div>`;}).join('');
+  return `<div class="mock"><div class="mm-grid">${tiles}</div><div class="mm-bar"><div class="mm-kb">⌨️</div><div class="mm-menu">เมนู ▾</div></div></div>`;
 }
 function flexMock(){
-  return `<div class="mock">
-    <div style="background:#4A7C3F;color:#fff;padding:12px 14px">
-      <div style="font-family:'Kanit';font-weight:700;font-size:15px">🚛 มีงานใหม่!</div>
-      <div style="font-size:11px;color:#D6E8D0;margin-top:2px">ORD-260628-xxx</div>
-    </div>
-    <div style="padding:12px 14px;font-size:13px;color:#5d6356;line-height:1.8">🌴 สวน: คลองพลู<br>📍 จุดรับ: ลานเทฯ<br>📦 ประเภท: ปาล์ม</div>
-    <div style="padding:0 12px 12px;display:flex;flex-direction:column;gap:7px">
-      <div class="fm-btn green" style="margin:0">✅ รับงาน</div>
-      <div style="border:1px solid var(--line);border-radius:12px;padding:11px;text-align:center;font-family:'Kanit';font-weight:600;font-size:14px;color:#9aa08f">❌ ปฏิเสธงาน</div>
-    </div></div>
-    <div class="mock-cap">การ์ดงานใหม่ที่เด้งในไลน์ · กด ✅ รับงาน</div>`;
+  return `<div class="mock"><div style="background:#4A7C3F;color:#fff;padding:11px 13px"><div style="font-family:'Kanit';font-weight:700;font-size:14px">🚛 มีงานใหม่!</div><div style="font-size:10.5px;color:#D6E8D0;margin-top:2px">ORD-260628-xxx</div></div><div style="padding:11px 13px;font-size:12.5px;color:#5d6356;line-height:1.8">🌴 สวน: คลองพลู<br>📍 จุดรับ: ลานเทฯ<br>📦 ประเภท: ปาล์ม</div><div style="padding:0 11px 11px;display:flex;flex-direction:column;gap:6px"><div class="fm-btn green" style="margin:0">✅ รับงาน</div><div style="border:1px solid var(--line);border-radius:11px;padding:10px;text-align:center;font-family:'Kanit';font-weight:600;font-size:13px;color:#9aa08f">❌ ปฏิเสธงาน</div></div></div>`;
 }
 function formMock(type){
   const P=(l,o)=>`<div class="fm-photo"><span class="pi">📷</span><span class="pt">${l}</span>${o?`<span class="fm-ocr">${o}</span>`:''}</div>`;
   const W=(l)=>`<div class="fm-weigh"><div class="wt">⚖️ ${l}</div><div class="fm-chips"><span class="fm-chip">หนัก <b>50,660</b></span><span class="fm-chip">เบา <b>20,650</b></span><span class="fm-chip">สุทธิ <b>30,010</b></span></div></div>`;
-  const L=(t)=>`<div class="fm-lbl">${t}</div>`;
-  const B=(c,t)=>`<div class="fm-btn ${c}">${t}</div>`;
+  const L=(t)=>`<div class="fm-lbl">${t}</div>`, B=(c,t)=>`<div class="fm-btn ${c}">${t}</div>`;
   const GPS=(v)=>`<div class="fm-gps"><div class="fm-gps-top"><span>📡 เลขไมล์รถ (จาก GPS)</span><span class="fm-gps-tag">DTC</span></div><div class="fm-gps-val">${v} กม.</div><div class="fm-gps-btn">📡 ดึงเลขไมล์จาก GPS</div></div>`;
   const LOAD=(st)=>`<div class="fm-load-lbl">สภาพรถช่วงนี้</div><div class="fm-load"><span class="fm-load-chip ${st==='เบา'?'on green':''}">🟢 รถเบา</span><span class="fm-load-chip ${st==='หนัก'?'on orange':''}">🟠 รถหนัก</span></div>`;
   const MH=(hubL,mileV,hubV,load)=>GPS(mileV)+P(hubL,hubV)+LOAD(load);
   const INV=(l)=>`<div class="fm-weigh"><div class="wt">🧾 ${l}</div><div class="fm-chips"><span class="fm-chip">หนัก <b>50,660</b></span><span class="fm-chip">เบา <b>20,650</b></span><span class="fm-chip">สุทธิ <b>30,010</b></span><span class="fm-chip">ราคา/กก. <b>5.20</b></span><span class="fm-chip">ราคารวม <b>156,052</b></span></div></div>`;
-  const SUM=(l,v)=>`<div style="display:flex;justify-content:space-between;gap:10px;font-size:13.5px;padding:7px 0;border-bottom:1px dashed var(--line)"><span style="color:var(--ink-soft)">${l}</span><b style="font-family:'Kanit';color:var(--green-deep);text-align:right">${v}</b></div>`;
-  let s='', cap='';
-  if(type==='start'){
-    cap='หน้าจุด “เริ่ม” ในเมนูรับงาน';
-    s=L('📍 เลขไมล์ GPS + ถ่ายดุมล้อ')+MH('รูปเลขดุมล้อเริ่ม','43,210','43,541','เบา')+B('green','🚀 ยืนยันออกโรงงาน');
-  } else if(type==='rampDrop'){
-    cap='หน้าจุด “วางกระบะที่ลาน”';
-    s=`<div class="fm-note">จุดนี้แค่วางกระบะที่ลาน ไม่ต้องถ่ายใบชั่ง</div>`+MH('รูปเลขดุมล้อ','43,260','43,580','เบา')+B('brown','📍 ยืนยันถึงลานวางกระบะ');
-  } else if(type==='client'){
-    cap='หน้าจุด “ถึงลูกค้า”';
-    s=`<div class="fm-note">หลังรับกระบะเรียบร้อย ระบบดึงเลขไมล์ GPS ให้ แล้วถ่ายดุมล้อก่อนออกเดินทาง (ยังไม่ชั่งน้ำหนัก)</div>`+MH('รูปเลขดุมล้อออกจากลูกค้า','69,856','43,541','หนัก')+B('green','🌴 ยืนยันออกจากลูกค้า');
-  } else if(type==='ramp'){
-    cap='หน้าจุด “กลับถึงลาน”';
-    s=MH('รูปเลขดุมล้อ','86,774','117,748','หนัก')+L('⚖️ ใบชั่งลานเท')+W('ใบชั่งลานเท')+B('brown','🏭 ยืนยันกลับถึงลานขากลับ');
-  } else if(type==='factory'){
-    cap='หน้าจุด “ถึงโรงงาน” — ขั้นปิดงาน';
-    s=L('🧾 ใบชั่งลูกค้า / ใบชั่งลานเท ที่โรงงาน')+INV('ใบชั่งลูกค้า (ที่โรงงาน)')+W('ใบชั่งลานเท (ที่โรงงาน)')
-      +L('📍 เลขไมล์ GPS + ดุมล้อ หลังชั่ง')+MH('รูปเลขดุมล้อหลังชั่ง','69,899','43,590','หนัก')
-      +L('⛽ เติมน้ำมันที่โรงงาน')+`<div class="fm-row"><div class="fm-input"><b>จำนวนลิตร</b>20</div><div class="fm-input"><b>ราคา/ลิตร</b>30.01</div></div>`
-      +L('💸 ค่าใช้จ่ายอื่น (ถ้ามี)')+`<div class="fm-chips"><span class="fm-chip">น้ำมันทาง</span><span class="fm-chip">ทางด่วน</span><span class="fm-chip">ค่าซ่อมนอก</span><span class="fm-chip">ค่าลงของ</span><span class="fm-chip">ค่าเด็กลงของ</span></div>`
-      +B('green','📋 ดูสรุปก่อนส่ง')
-      +`<div class="fm-note" style="margin-top:10px">กดแล้วจะมีหน้าตรวจทานให้เช็คก่อนส่งจริง</div>`;
-  } else if(type==='preview'){
-    cap='หน้าตรวจทานหลังกดยืนยัน — แก้ไขได้ก่อนส่ง';
-    s=`<div style="font-family:'Kanit';font-weight:700;font-size:15px;color:var(--green-deep);margin-bottom:8px">🔍 ตรวจทานก่อนส่ง</div>`
-      +SUM('เลขไมล์ เริ่ม → จบ','43,210 → 69,899')
-      +SUM('ระยะทางรวม','26,689 กม.')
-      +SUM('น้ำหนักสุทธิ','30,010 กก.')
-      +SUM('ราคา/กก.','5.20 บาท')
-      +SUM('ราคารวม','156,052 บาท')
-      +SUM('ค่าน้ำมัน','600.20 บาท')
-      +SUM('ค่าใช้จ่ายอื่น','350 บาท')
-      +`<div class="fm-note" style="margin-top:10px">เลขหรือราคาผิด? กดปุ่มซ้ายเพื่อกลับไปแก้จุดนั้นได้</div>`
-      +`<div class="fm-row" style="margin-top:12px"><div class="fm-btn" style="margin:0;flex:1;background:#fff;color:var(--green-deep);border:1px solid var(--line)">✏️ กลับไปแก้ไข</div><div class="fm-btn green" style="margin:0;flex:1">✅ ยืนยันส่ง</div></div>`;
-  }
-  return `<div class="mock"><div class="fm">${s}</div></div><div class="mock-cap">${cap} · ตัวเลขเป็นแค่ตัวอย่าง</div>`;
+  const SUM=(l,v)=>`<div style="display:flex;justify-content:space-between;gap:10px;font-size:13px;padding:6px 0;border-bottom:1px dashed var(--line)"><span style="color:var(--ink-soft)">${l}</span><b style="font-family:'Kanit';color:var(--green);text-align:right">${v}</b></div>`;
+  let s='';
+  if(type==='start') s=L('📍 เลขไมล์ GPS + ถ่ายดุมล้อ')+MH('รูปเลขดุมล้อเริ่ม','43,210','43,541','เบา')+B('green','🚀 ยืนยันออกโรงงาน');
+  else if(type==='rampDrop') s=`<div class="fm-note">วางกระบะที่ลาน ไม่ต้องถ่ายใบชั่ง</div>`+MH('รูปเลขดุมล้อ','43,260','43,580','เบา')+B('brown','📍 ยืนยันถึงลานวางกระบะ');
+  else if(type==='client') s=`<div class="fm-note">ระบบดึงเลขไมล์ GPS ให้ แล้วถ่ายดุมล้อ (ยังไม่ชั่งน้ำหนัก)</div>`+MH('รูปเลขดุมล้อออกจากลูกค้า','69,856','43,541','หนัก')+B('green','🌴 ยืนยันออกจากลูกค้า');
+  else if(type==='ramp') s=MH('รูปเลขดุมล้อ','86,774','117,748','หนัก')+L('⚖️ ใบชั่งลานเท')+W('ใบชั่งลานเท')+B('brown','🏭 ยืนยันกลับถึงลานขากลับ');
+  else if(type==='factory') s=L('🧾 ใบชั่งลูกค้า / ใบชั่งลานเท ที่โรงงาน')+INV('ใบชั่งลูกค้า')+W('ใบชั่งลานเท')+L('📍 เลขไมล์ GPS + ดุมล้อ หลังชั่ง')+MH('รูปเลขดุมล้อหลังชั่ง','69,899','43,590','หนัก')+L('⛽ เติมน้ำมันที่โรงงาน')+`<div class="fm-row"><div class="fm-input"><b>จำนวนลิตร</b>20</div><div class="fm-input"><b>ราคา/ลิตร</b>30.01</div></div>`+L('💸 ค่าใช้จ่ายอื่น')+`<div class="fm-chips"><span class="fm-chip">น้ำมันทาง</span><span class="fm-chip">ทางด่วน</span><span class="fm-chip">ค่าซ่อมนอก</span><span class="fm-chip">ค่าลงของ</span><span class="fm-chip">ค่าเด็กลงของ</span></div>`+B('green','📋 ดูสรุปก่อนส่ง');
+  else if(type==='preview') s=`<div style="font-family:'Kanit';font-weight:700;font-size:14px;color:var(--green);margin-bottom:8px">🔍 ตรวจทานก่อนส่ง</div>`+SUM('เลขไมล์ เริ่ม → จบ','43,210 → 69,899')+SUM('ระยะทางรวม','26,689 กม.')+SUM('น้ำหนักสุทธิ','30,010 กก.')+SUM('ราคา/กก.','5.20 บาท')+SUM('ราคารวม','156,052 บาท')+SUM('ค่าน้ำมัน','600.20 บาท')+SUM('ค่าใช้จ่ายอื่น','350 บาท')+`<div class="fm-note" style="margin-top:9px">เลขหรือราคาผิด? กดปุ่มซ้ายเพื่อกลับไปแก้ได้</div>`+`<div class="fm-row" style="margin-top:11px"><div class="fm-btn" style="margin:0;flex:1;background:#fff;color:var(--green);border:1px solid var(--line)">✏️ กลับไปแก้ไข</div><div class="fm-btn green" style="margin:0;flex:1">✅ ยืนยันส่ง</div></div>`;
+  return `<div class="mock"><div class="fm">${s}</div></div>`;
 }
-function renderMock(m){
-  if(!m) return '';
-  if(m.type==='menu') return menuMock(m.hl);
-  if(m.type==='form') return formMock(m.form);
-  if(m.type==='flex') return flexMock();
+
+// ── ฉากวิดีโอ ──
+const SCENES = [
+  { kicker:"SSB Smart Supply", vis:{t:'title'},
+    sub:"วิ่งงานครบทุกขั้นตอน ตั้งแต่รับงานจนปิดงาน",
+    say:"ยินดีต้อนรับสู่คู่มือคนขับ เอสเอสบี สมาร์ทซัพพลาย วิดีโอนี้จะพาคุณวิ่งงานครบทุกขั้นตอน ตั้งแต่รับงานจนถึงปิดงาน {p}" },
+
+  { kicker:"ขั้นที่ 1 · ลงทะเบียนครั้งแรก", vis:{t:'reg'},
+    sub:"เลือกคนขับรถ → ชื่อ เบอร์ → เลือกประเภทรถ → ทะเบียนรถ → รออนุมัติ",
+    say:"เริ่มจากลงทะเบียนครั้งเดียว สแกนคิวอาร์เพิ่มเพื่อนไลน์ เลือกประเภทผู้ใช้เป็นคนขับรถ กรอกชื่อและเบอร์โทร เลือกประเภทรถ แล้วพิมพ์ทะเบียนรถ จากนั้นรอแอดมินอนุมัติ" },
+
+  { kicker:"เมนู 6 ปุ่มของคนขับ", vis:{t:'menu',hl:'all'},
+    sub:"ปุ่มที่ใช้บ่อยสุดคือ “รับงาน” — ไว้เปิดงานและกรอกข้อมูล",
+    say:"เมื่อลงทะเบียนแล้ว จะเห็นเมนูหกปุ่มด้านล่างห้องแชท ปุ่มที่ใช้บ่อยที่สุดคือ รับงาน เอาไว้เปิดงานและกรอกข้อมูล" },
+
+  { kicker:"ลงเวลา เข้า-ออกงาน", vis:{t:'menu',hl:'ลงเวลา เข้า-ออก'},
+    sub:"ก่อนเริ่มงานกด “เข้างาน” · เลิกงานกด “ออกงาน”",
+    say:"ทุกวันก่อนเริ่มงาน ให้แตะเมนู ลงเวลา เข้า-ออก แล้วกดเข้างาน พอเลิกงานแล้วก็เปิดเมนูเดิม กดออกงาน ลงให้ครบทุกวันเพื่อให้ชั่วโมงทำงานถูกต้อง" },
+
+  { kicker:"ขั้นที่ 2 · รับงานใหม่", vis:{t:'flex'},
+    sub:"การ์ดงานเด้งในไลน์ → กด ✅ รับงาน",
+    say:"เมื่อมีงานใหม่ การ์ดจะเด้งขึ้นในไลน์ ถ้าจะรับงานนี้ ให้กดปุ่ม รับงาน สีเขียว หรือจะไปหยิบงานเองที่เมนู อัปเดตงานว่าง ก็ได้" },
+
+  { kicker:"เปิดงานที่เมนู “รับงาน”", vis:{t:'menu',hl:'รับงาน'},
+    sub:"แตะ “รับงาน” → เห็นลำดับจุดงาน → ทำจุดที่ขึ้นว่ากำลังดำเนินการ",
+    say:"พอรับงานแล้ว ให้แตะเมนู รับงาน จะเห็นลำดับจุดงาน ทำไล่จากบนลงล่าง จุดที่ขึ้นว่า กำลังดำเนินการ คือจุดที่ต้องกรอกตอนนี้" },
+
+  { kicker:"จุดที่ 1 · ออกโรงงาน", vis:{t:'form',f:'start'},
+    sub:"ดึงเลขไมล์ GPS + ถ่ายดุมล้อ + เลือกสภาพรถ → ยืนยัน",
+    say:"จุดแรก ออกโรงงาน เลขไมล์รถระบบดึงจากจีพีเอสให้ ส่วนดุมล้อให้ถ่ายรูป ระบบจะอ่านเลขให้ จากนั้นเลือกสภาพรถว่าเบาหรือหนัก แล้วกดปุ่มเขียว ยืนยันออกโรงงาน" },
+
+  { kicker:"เฉพาะงานแวะลาน · วางกระบะที่ลาน", vis:{t:'form',f:'rampDrop'},
+    sub:"ดึงไมล์ GPS + ถ่ายดุมล้อ + สภาพรถ · ยังไม่ต้องถ่ายใบชั่ง",
+    say:"ถ้าเป็นงานที่แวะลาน ให้แวะวางกระบะที่ลานก่อน ดึงเลขไมล์จีพีเอส ถ่ายดุมล้อ แล้วเลือกสภาพรถ จุดนี้ยังไม่ต้องถ่ายใบชั่ง ส่วนงานที่ไม่แวะลาน ข้ามขั้นนี้ไปได้เลย" },
+
+  { kicker:"จุดที่ 2 · ถึงสวน รับกระบะ", vis:{t:'form',f:'client'},
+    sub:"รับกระบะ → ดึงไมล์ GPS + ถ่ายดุมล้อ + สภาพรถ (ยังไม่ชั่ง)",
+    say:"ถึงสวนหรือลูกค้า รับกระบะให้เรียบร้อย ระบบดึงเลขไมล์จีพีเอสให้ แล้วถ่ายดุมล้อ เลือกสภาพรถ ก่อนออกเดินทาง จุดนี้ยังไม่ชั่งน้ำหนัก" },
+
+  { kicker:"เฉพาะงานแวะลาน · กลับถึงลาน", vis:{t:'form',f:'ramp'},
+    sub:"ดึงไมล์ GPS + ถ่ายดุมล้อ + สภาพรถ + ใบชั่งลานเท",
+    say:"งานที่แวะลาน ขากลับให้แวะรับกระบะพร้อมผลปาล์มที่ลาน ดึงเลขไมล์จีพีเอส ถ่ายดุมล้อ เลือกสภาพรถ และถ่ายใบชั่งลานเท ระบบจะอ่านน้ำหนัก หนัก เบา สุทธิ ให้" },
+
+  { kicker:"จุดที่ 3 · ถึงโรงงาน ปิดงาน", vis:{t:'form',f:'factory'},
+    sub:"ใบชั่งลูกค้า (หนัก/เบา/สุทธิ + ราคา/กก. + ราคารวม) + ไมล์ + น้ำมัน + ค่าใช้จ่าย",
+    say:"จุดสุดท้าย ถึงโรงงาน ถ่ายใบชั่งลูกค้าที่มีน้ำหนักรถหนัก รถเบา น้ำหนักสุทธิ ราคาต่อกิโลกรัม และราคารวม พร้อมใบชั่งลาน เลขไมล์ดึงจากจีพีเอส ถ่ายดุมล้อหลังชั่ง เลือกสภาพรถ เติมน้ำมัน กรอกลิตรและราคา แล้วลงค่าใช้จ่ายอื่นให้ครบ จากนั้นกด ดูสรุปก่อนส่ง" },
+
+  { kicker:"ตรวจทานก่อนส่ง · แก้ไขได้", vis:{t:'form',f:'preview'},
+    sub:"เลขหรือราคาผิด กด ✏️ กลับไปแก้ไข ก่อนกดยืนยันส่ง",
+    say:"หลังกดยืนยัน ระบบจะสรุปทุกอย่างให้ตรวจอีกรอบ ทั้งเลขไมล์ ระยะทาง น้ำหนัก ราคารวม และค่าใช้จ่าย ถ้ามีอะไรผิด กดปุ่มกลับไปแก้ไขได้ ถ้าถูกต้องครบแล้วค่อยกด ยืนยันส่ง" },
+
+  { kicker:"ตรวจงาน · ประวัติงาน + สรุปงาน", vis:{t:'menu',hl:['ประวัติงาน','สรุปงาน']},
+    sub:"ดูงานย้อนหลังและชั่วโมงทำงานของตัวเอง",
+    say:"อยากดูงานย้อนหลังหรือชั่วโมงทำงาน เปิดได้ที่ปุ่ม ประวัติงาน และ สรุปงาน ถ้าเห็นข้อมูลผิด ให้รีบแจ้งแอดมิน" },
+
+  { kicker:"แจ้งลา / แจ้งซ่อม", vis:{t:'menu',hl:['แจ้งลา / แจ้งซ่อม']},
+    sub:"ขอลา หรือ แจ้งรถเสีย",
+    say:"ปุ่ม แจ้งลา แจ้งซ่อม เอาไว้ขอลา หรือแจ้งรถเสีย ถ้ารถมีปัญหา รีบแจ้งทันที จะได้จัดรถสำรองได้ทัน" },
+
+  { kicker:"พร้อมวิ่งงานแล้ว!", vis:{t:'end'},
+    sub:"ไมล์มาจาก GPS · ถ่ายดุมล้อให้ชัด · เลือกสภาพรถ · ลงค่าใช้จ่ายให้ครบ",
+    say:"เท่านี้ก็พร้อมวิ่งงานแล้ว จำไว้ เลขไมล์มาจากจีพีเอส ถ่ายดุมล้อให้ชัด เลือกสภาพรถทุกจุด และลงค่าใช้จ่ายให้ครบก่อนปิดงาน ขอให้เดินทางปลอดภัย {p}" },
+];
+
+function visHtml(v){
+  if(v.t==='menu') return menuMock(v.hl);
+  if(v.t==='form') return formMock(v.f);
+  if(v.t==='flex') return flexMock();
+  if(v.t==='title') return `<div class="panel"><div class="pic">🚛</div><h2>วิดีโอแนะนำคนขับรถ</h2><div class="ps">SSB Smart Supply</div></div>`;
+  if(v.t==='reg') return `<div class="panel"><div class="pic">📝</div><div class="ministeps"><div><span class="mn">1</span> เลือก “4 คนขับรถ”</div><div><span class="mn">2</span> ชื่อ-นามสกุล + เบอร์โทร</div><div><span class="mn">3</span> เลือกประเภทรถ<span style="margin-left:auto;display:flex;gap:5px"><span class="vt-chip">6 ล้อ</span><span class="vt-chip">10 ล้อ</span><span class="vt-chip">เทรลเลอร์</span></span></div><div><span class="mn">4</span> พิมพ์ทะเบียนรถ</div><div><span class="mn">5</span> รอแอดมินอนุมัติ Active</div></div><div style="margin-top:9px;font-size:11px;color:rgba(255,255,255,.45)">* ตัวอย่างประเภทรถ — ปรับตามจริงได้</div></div>`;
+  if(v.t==='end') return `<div class="panel"><div class="pic">✅</div><h2>พร้อมวิ่งงานแล้ว!</h2><div class="ministeps"><div><span class="mn">✓</span> งานวิ่งจริงอยู่ในปุ่ม “รับงาน”</div><div><span class="mn">✓</span> ถ่ายเลขให้ชัด OCR อ่านแม่น</div><div><span class="mn">✓</span> เลขดุมล้อห้ามถอยหลัง</div><div><span class="mn">✓</span> ลงค่าใช้จ่ายให้ครบก่อนปิดงาน</div></div></div>`;
   return '';
 }
 
-// ── เนื้อหา (อิงจากเมนูจริง + โค้ดฟอร์มจริง) ──
-const STEPS = [
-  { intro:true, phase:"คู่มือคนขับ",
-    title:"วิ่งงานครบทุกขั้นตอน พร้อมภาพว่ากดปุ่มไหน",
-    sub:"กดปุ่มสีส้มด้านล่างดูทีละขั้น แต่ละขั้นมีภาพเมนู/ฟอร์มจริงให้ดูว่าต้องกดตรงไหน" },
+// ── player state ──
+let idx=0, playing=false, muted=false, playId=0, advanceTimer=null, rate=1;
+const RATES=[0.85,1,1.25];
+let thVoice=null, voicesTH=[];
+const $=id=>document.getElementById(id);
+const MALE_HINT=/pattara|niran|niwat|liam|chai|ผู้ชาย|ชาย|\bmale\b|man/i;
+const FEMALE_HINT=/kanya|premwadee|narisa|woman|\bfemale\b|หญิง/i;
+let voiceGender='m';   // m=ครับ, f=ค่ะ
+function genderOf(v){
+  if(!v) return 'm';
+  if(FEMALE_HINT.test(v.name)) return 'f';
+  if(MALE_HINT.test(v.name))   return 'm';
+  return 'm';   // เดาไม่ออก → ใช้ ครับ เป็นค่าตั้งต้น
+}
+function particle(){ return voiceGender==='f' ? 'ค่ะ' : 'ครับ'; }
+function applyParticle(t){ return (t||'').replace(/\{p\}/g, particle()); }
+function loadVoices(){
+  const vs=(window.speechSynthesis?speechSynthesis.getVoices():[])||[];
+  voicesTH=vs.filter(v=>v.lang&&v.lang.toLowerCase().startsWith('th'));
+  thVoice = voicesTH.find(v=>MALE_HINT.test(v.name))
+         || voicesTH.find(v=>!FEMALE_HINT.test(v.name))
+         || voicesTH[0] || null;
+  voiceGender=genderOf(thVoice);
+  populateVoiceSelect();
+}
+function populateVoiceSelect(){
+  const sel=$('voiceSel'); if(!sel) return;
+  if(!voicesTH.length){ sel.innerHTML='<option>— ไม่มีเสียงไทยในเครื่อง —</option>'; sel.disabled=true; return; }
+  sel.disabled=false;
+  sel.innerHTML=voicesTH.map((v,i)=>`<option value="${i}" ${v===thVoice?'selected':''}>${v.name}</option>`).join('');
+}
+function pickVoice(i){ thVoice=voicesTH[+i]||thVoice; voiceGender=genderOf(thVoice); stopAll(); render(); if(playing) playFrom(idx); }
+if(window.speechSynthesis){ speechSynthesis.onvoiceschanged=loadVoices; loadVoices(); }
 
-  { phase:"ลงทะเบียน", icon:"📝", short:"ลงทะเบียน", sub:"ทำครั้งเดียว",
-    title:"ลงทะเบียนเป็นคนขับ (ครั้งแรกครั้งเดียว)",
-    lead:"ทำรอบเดียวจบ ถ้าเห็นเมนู 6 ปุ่มในไลน์แล้ว แปลว่าลงทะเบียนเรียบร้อย",
-    todo:[
-      "สแกน QR เพิ่มเพื่อนไลน์ <b>SSB Smart Supply</b>",
-      "ระบบถาม → เลือก <b>4 คนขับรถ</b>",
-      "พิมพ์ <b>ชื่อ-นามสกุล</b> แล้วตามด้วย <b>เบอร์โทร</b>",
-      "เลือก <b>ประเภทรถ</b> แล้วพิมพ์ <b>ทะเบียนรถ</b>",
-      "รอแอดมินอนุมัติเป็น <b>Active</b>"
-    ],
-    tip:"เลือกประเภทรถและทะเบียนให้ตรงกับรถที่ขับจริง ระบบใช้ข้อมูลนี้ตอนมอบงาน" },
+function estDur(t){ return Math.max(3800, t.length*58)/rate; }
 
-  { phase:"เมนูหลัก", icon:"📲", short:"รู้จักเมนู 6 ปุ่ม", sub:"แผงเมนูในไลน์",
-    title:"ทำความรู้จักเมนู 6 ปุ่ม",
-    lead:"ปุ่มเมนูอยู่ด้านล่างห้องแชทไลน์ แตะแล้วเลือกได้เลย",
-    todo:[
-      "<b>รับงาน</b> — เปิดงานที่รับไว้ แล้วกรอกตามจุด (ใช้บ่อยสุด)",
-      "<b>อัปเดตงานว่าง</b> — ดูงานที่ยังว่าง แล้วหยิบมาทำ",
-      "<b>ประวัติงาน</b> — งานที่วิ่งไปแล้ว",
-      "<b>ลงเวลา เข้า-ออก</b> — กดเข้างานตอนเริ่ม / ออกงานตอนเลิก",
-      "<b>แจ้งลา / แจ้งซ่อม</b> — ขอลา หรือแจ้งรถเสีย",
-      "<b>สรุปงาน</b> — สรุปงาน/ชั่วโมงของเรา"
-    ],
-    tip:"งานวิ่งจริงส่วนใหญ่อยู่ในปุ่ม “รับงาน” ปุ่มเดียว จำปุ่มนี้ไว้ให้แม่น",
-    mock:{type:'menu', hl:'all'} },
-
-  { phase:"เข้างาน", icon:"⏰", short:"ลงเวลา เข้า-ออก", sub:"เริ่ม-เลิกงาน",
-    title:"ลงเวลา เข้า-ออกงาน",
-    lead:"ทุกวันก่อนเริ่มงานให้กดเข้างาน และตอนเลิกงานให้กดออกงาน",
-    todo:[
-      "ก่อนเริ่มงาน → แตะเมนู <b>ลงเวลา เข้า-ออก</b> → กด <b>เข้างาน</b>",
-      "เลิกงานแล้ว → เปิดเมนูเดิม → กด <b>ออกงาน</b>",
-      "ดูสถานะได้ว่าวันนี้ลงเวลาเข้า/ออกแล้วหรือยัง"
-    ],
-    tip:"ลงเวลาให้ครบทั้งเข้าและออกทุกวัน เพื่อให้ชั่วโมงทำงานถูกต้อง",
-    mock:{type:'menu', hl:'ลงเวลา เข้า-ออก'} },
-
-  { phase:"รับงาน", icon:"🚛", short:"รับงานใหม่", sub:"งานเด้งในไลน์",
-    title:"รับงานใหม่",
-    lead:"งานใหม่จะเด้งเป็นการ์ดในไลน์ หรือไปหยิบเองที่ “อัปเดตงานว่าง”",
-    todo:[
-      "การ์ด <b>🚛 มีงานใหม่!</b> เด้งมา → กด <b>✅ รับงาน</b>",
-      "หรือเปิดเมนู <b>อัปเดตงานว่าง</b> เพื่อหยิบงานที่ยังว่าง",
-      "ระบบตอบยืนยัน <b>เลขงาน / จุดรับ / ทะเบียนรถ</b>"
-    ],
-    tip:"กด ✅ รับงาน ทีเดียวพอ รอระบบตอบ อย่ากดซ้ำหลายครั้ง",
-    mock:{type:'flex'} },
-
-  { phase:"รับงาน", icon:"📂", short:"เปิดงานที่ทำอยู่", sub:"กดเมนู รับงาน",
-    title:"เปิดงานที่กำลังทำ",
-    lead:"กดเมนู “รับงาน” จะเห็นลำดับจุดงาน ทำไล่จากบนลงล่าง",
-    todo:[
-      "แตะเมนู <b>รับงาน</b>",
-      "เห็นลำดับจุดงาน: ออกโรงงาน → (ลาน) → ลูกค้า → (ลาน) → โรงงาน",
-      "จุดที่ขึ้นว่า <b>กำลังดำเนินการ</b> คือจุดที่ต้องกรอกตอนนี้"
-    ],
-    tip:"ทำทีละจุดตามลำดับ จุดถัดไปจะเปิดให้เองเมื่อจุดก่อนหน้าเสร็จ",
-    mock:{type:'menu', hl:'รับงาน'} },
-
-  { phase:"วิ่งงาน", icon:"🏭", short:"ออกโรงงาน", sub:"จุดเริ่ม",
-    title:"ออกโรงงาน — บันทึกเลขเริ่มต้น",
-    lead:"เลขไมล์ดึงจาก GPS · ดุมล้อถ่ายรูป · เลือกสภาพรถเบา/หนัก",
-    todo:[
-      "กด <b>📡 ดึงเลขไมล์จาก GPS</b> (ถ้าดึงไม่ได้ค่อยกรอกมือ)",
-      "ถ่าย <b>รูปเลขดุมล้อเริ่ม</b> ระบบอ่าน OCR ให้",
-      "เลือก <b>สภาพรถ</b>: 🟢 รถเบา / 🟠 รถหนัก",
-      "กดปุ่มเขียว <b>🚀 ยืนยันออกโรงงาน</b>"
-    ],
-    tip:"เลขไมล์ใช้จาก GPS ถ้ายังขึ้นว่าดึงไม่ได้ ให้กดดึงใหม่ หรือกรอกจากหน้าปัดเอง",
-    mock:{type:'form', form:'start'} },
-
-  { phase:"วิ่งงาน", icon:"📦", short:"ลานวางกระบะ", sub:"เฉพาะงานแวะลาน",
-    title:"ถึงลานวางกระบะ",
-    lead:"ทำเฉพาะงานที่ระบุว่าแวะลานเท",
-    optional:"งานที่ไม่แวะลาน ข้ามขั้นนี้ไปได้เลย",
-    todo:[
-      "ดึง <b>เลขไมล์ GPS</b> + ถ่าย <b>ดุมล้อ</b> + เลือก <b>สภาพรถ</b>",
-      "ไม่ต้องถ่ายใบชั่ง (รู้สุทธิตอนขากลับ)",
-      "กดปุ่มน้ำตาล <b>📍 ยืนยันถึงลานวางกระบะ</b>"
-    ],
-    tip:"เลขดุมล้อต้องไม่น้อยกว่าจุดก่อนหน้า ถ้าเตือนให้ถ่ายใหม่ให้ตรง",
-    mock:{type:'form', form:'rampDrop'} },
-
-  { phase:"วิ่งงาน", icon:"🌴", short:"ถึงสวน/ลูกค้า", sub:"รับกระบะ",
-    title:"ถึงสวน/ลูกค้า — รับกระบะ",
-    lead:"จุดนี้แค่รับกระบะแล้วบันทึกเลข ยังไม่ชั่งน้ำหนัก",
-    todo:[
-      "รับกระบะจากลูกค้า/สวนให้เรียบร้อย",
-      "ดึง <b>เลขไมล์ GPS</b> + ถ่าย <b>ดุมล้อออกจากลูกค้า</b>",
-      "เลือก <b>สภาพรถ</b> (ขากลับมักเป็น 🟠 รถหนัก)",
-      "กดปุ่มเขียว <b>🌴 ยืนยันออกจากลูกค้า</b>"
-    ],
-    tip:"ยังไม่ชั่งน้ำหนักที่นี่ — ใบชั่งจะไปทำตอนกลับถึงลานเท และที่โรงงาน",
-    mock:{type:'form', form:'client'} },
-
-  { phase:"วิ่งงาน", icon:"🔄", short:"ลานขากลับ", sub:"เฉพาะงานแวะลาน",
-    title:"ถึงลานขากลับ",
-    lead:"กลับมารับกระบะพร้อมผลปาล์มที่ลาน จุดนี้เริ่มมีใบชั่ง",
-    optional:"งานที่ไม่แวะลาน ข้ามขั้นนี้ไปได้เลย",
-    todo:[
-      "ดึง <b>เลขไมล์ GPS</b> + ถ่าย <b>ดุมล้อ</b> + เลือก <b>สภาพรถ</b>",
-      "ถ่าย <b>ใบชั่งลานเท</b> — ระบบ OCR อ่าน หนัก/เบา/สุทธิ",
-      "กดปุ่มน้ำตาล <b>🏭 ยืนยันกลับถึงลานขากลับ</b>"
-    ],
-    tip:"วางใบชั่งให้เรียบ ไม่มีเงาบัง เห็นตัวเลขครบทั้ง 3 ค่า",
-    mock:{type:'form', form:'ramp'} },
-
-  { phase:"ปิดงาน", icon:"🧾", short:"ถึงโรงงาน", sub:"ปิดงาน+ค่าใช้จ่าย",
-    title:"ถึงโรงงาน — ปิดงานและลงค่าใช้จ่าย",
-    lead:"ขั้นสุดท้าย ถ่ายใบชั่งและลงค่าใช้จ่ายให้ครบ",
-    todo:[
-      "ถ่าย <b>ใบชั่งลูกค้า</b> (มีหนัก, เบา, สุทธิ, ราคา/กก., ราคารวม) + <b>ใบชั่งลานเท</b> ถ้ามี",
-      "ดึง <b>เลขไมล์ GPS</b> + ถ่าย <b>ดุมล้อหลังชั่ง</b> + เลือก <b>สภาพรถ</b>",
-      "เติมน้ำมันโรงงาน: กรอก <b>ลิตร + ราคา/ลิตร</b> + แนบรูปใบเติม",
-      "ลงค่าใช้จ่ายอื่น: น้ำมันทาง, ทางด่วน, ค่าซ่อมนอก, ค่าลงของ, ค่าเด็กลงของ",
-      "กดปุ่มเขียว <b>📋 ดูสรุปก่อนส่ง</b> → จะมีหน้าตรวจทานให้เช็คก่อนส่ง"
-    ],
-    tip:"แนบรูปบิลทุกใบ (น้ำมัน/ซ่อม) เพื่อให้เบิกค่าใช้จ่ายได้ครบ",
-    mock:{type:'form', form:'factory'} },
-
-  { phase:"ปิดงาน", icon:"🔍", short:"ตรวจทานก่อนส่ง", sub:"แก้ไขได้",
-    title:"ตรวจทานก่อนส่ง — แก้ไขได้",
-    lead:"หลังกดยืนยันเสร็จงาน ระบบจะสรุปทุกอย่างให้ตรวจอีกรอบ",
-    todo:[
-      "ดูสรุป: เลขไมล์เริ่ม-จบ, ระยะทาง, น้ำหนักสุทธิ, ราคา/กก., ราคารวม",
-      "ดูค่าใช้จ่าย: ค่าน้ำมัน และค่าใช้จ่ายอื่น",
-      "เลขหรือราคาผิด? กด <b>✏️ กลับไปแก้ไข</b> ไปแก้จุดนั้นได้เลย",
-      "ถูกต้องครบแล้วค่อยกด <b>✅ ยืนยันส่ง</b> เพื่อปิดงานจริง"
-    ],
-    tip:"ตรวจราคารวมและเลขไมล์ให้ดีก่อนส่ง ส่งไปแล้วแก้ยากกว่า",
-    mock:{type:'form', form:'preview'} },
-
-  { phase:"ตรวจงาน", icon:"🗂️", short:"ประวัติ / สรุปงาน", sub:"ดูงานย้อนหลัง",
-    title:"ดูประวัติงานและสรุปงาน",
-    lead:"ตรวจงานที่วิ่งไปและชั่วโมงของตัวเองได้ที่ 2 ปุ่มนี้",
-    todo:[
-      "<b>ประวัติงาน</b> — งานที่เสร็จแล้ว + ระยะทาง/น้ำมัน",
-      "<b>สรุปงาน</b> — สรุปภาพรวมงานของเรา",
-      "ดูแล้วเลขไม่ตรง? แจ้งแอดมินได้เลย"
-    ],
-    tip:"เช็คประวัติเป็นประจำ ถ้าเห็นข้อมูลผิดให้รีบแจ้งทันที",
-    mock:{type:'menu', hl:['ประวัติงาน','สรุปงาน']} },
-
-  { phase:"อื่นๆ", icon:"🔔", short:"แจ้งลา / แจ้งซ่อม", sub:"เมนูช่วยเหลือ",
-    title:"แจ้งลา / แจ้งซ่อม",
-    lead:"ปุ่มนี้ไว้ขอลา หรือแจ้งรถเสีย",
-    todo:[
-      "ขอลา: เลือก <b>วันเริ่ม-สิ้นสุด</b> แล้วส่งคำขอ",
-      "แจ้งซ่อม: เลือกรถ + กรอก <b>อาการ</b> แล้วส่งให้แอดมิน",
-      "ส่งคำขอ → รอแอดมินอนุมัติ"
-    ],
-    tip:"รถมีปัญหา รีบแจ้งซ่อมทันที จะได้จัดรถสำรองได้ทัน",
-    mock:{type:'menu', hl:['แจ้งลา / แจ้งซ่อม']} },
-
-  { end:true, phase:"พร้อมวิ่งงาน", icon:"✅",
-    title:"พร้อมวิ่งงานแล้ว!",
-    lead:"จำ 4 ข้อนี้ไว้ทุกครั้ง แล้วงานจะราบรื่น",
-    recap:[
-      "งานวิ่งจริงอยู่ในปุ่ม “รับงาน” — ทำไล่ตามลำดับจุดงาน",
-      "เลขไมล์มาจาก GPS · ถ่ายดุมล้อ/ใบชั่งให้ชัด OCR จะอ่านแม่น",
-      "เลขดุมล้อห้ามถอยหลัง ต้องเพิ่มขึ้นเสมอ",
-      "ถึงโรงงานแล้วลงน้ำมัน/ค่าใช้จ่ายให้ครบก่อนกดเสร็จงาน"
-    ] }
-];
-
-let i = 0;
-const view=document.getElementById('view'), bar=document.getElementById('bar'),
-  phaseLabel=document.getElementById('phaseLabel'), stepCur=document.getElementById('stepCur'),
-  stepTot=document.getElementById('stepTot'), btnPrev=document.getElementById('btnPrev'),
-  btnNext=document.getElementById('btnNext');
-const numbered = STEPS.map((s,idx)=>(!s.intro&&!s.end)?idx:null).filter(x=>x!==null);
+function stopAll(){ playId++; if(window.speechSynthesis) speechSynthesis.cancel(); clearTimeout(advanceTimer); }
 
 function render(){
-  const s = STEPS[i];
-  let html='';
-  if(s.intro){
-    html=`<div class="hero">
-      <span class="badge">SSB Smart Supply</span>
-      <h1>${s.title}</h1><p>${s.sub}</p>
-      <div class="journey">
-        <div class="node"><div class="b">🏭</div>โรงงาน</div><div class="seg"></div>
-        <div class="node"><div class="b">📦</div>ลาน</div><div class="seg"></div>
-        <div class="node"><div class="b">🌴</div>สวน</div><div class="seg"></div>
-        <div class="node"><div class="b">🏭</div>กลับ</div>
-      </div></div>`;
-  } else if(s.end){
-    html=`<div class="card">
-      <div class="icon-wrap" style="background:var(--green-soft)">${s.icon}</div>
-      <h1 class="title">${s.title}</h1><p class="lead">${s.lead}</p>
-      <ul class="dolist">${s.recap.map((t,n)=>`<li><span class="ck">${n+1}</span><span class="tx">${t}</span></li>`).join('')}</ul>
-    </div>`;
-  } else {
-    const stepIndex = numbered.indexOf(i)+1;
-    html=`<div class="card">
-      <div style="display:flex;justify-content:space-between;align-items:center">
-        <span class="eyebrow">${s.phase}</span><span class="stepno">ขั้นที่ ${stepIndex} / ${numbered.length}</span>
-      </div>
-      <div class="icon-wrap">${s.icon}</div>
-      <h1 class="title">${s.title}</h1><p class="lead">${s.lead}</p>
-      ${s.optional?`<div class="optional">⏭️ ${s.optional}</div>`:''}
-      ${s.mock?renderMock(s.mock):''}
-      <ul class="dolist">${s.todo.map((t,n)=>`<li><span class="ck">${n+1}</span><span class="tx">${t}</span></li>`).join('')}</ul>
-      ${s.tip?`<div class="tip"><span class="ti">💡</span><span class="tt"><b>เคล็ดลับ: </b>${s.tip}</span></div>`:''}
-    </div>`;
+  const sc=SCENES[idx];
+  $('kicker').textContent=sc.kicker;
+  $('vInner').innerHTML=visHtml(sc.vis);
+  $('sub').textContent=applyParticle(sc.sub);
+  $('track').style.width=(idx/(SCENES.length-1))*100+'%';
+  $('count').textContent=`ฉาก ${idx+1} / ${SCENES.length}`;
+  // restart fade
+  $('kicker').style.animation='none'; $('vInner').style.animation='none';
+  void $('vInner').offsetWidth;
+  $('kicker').style.animation=''; $('vInner').style.animation='';
+  requestAnimationFrame(fitVisual);
+  updateUI();
+}
+function fitVisual(){
+  const area=document.querySelector('.vArea'), inner=$('vInner'), kick=$('kicker');
+  inner.style.transform='none'; inner.style.marginTop='0';
+  const avail=area.clientHeight-kick.offsetHeight-22;
+  const h=inner.scrollHeight;
+  let s=1;
+  if(h>avail) s=Math.max(0.28, avail/h);   // ย่อจนพอดี ไม่มีพื้นล่างค้าง = เห็นครบ
+  inner.style.transformOrigin='top center';
+  inner.style.transform=`scale(${s})`;
+  // จัดให้อยู่กลางแนวตั้ง (เผื่อรูปสั้นกว่าพื้นที่)
+  const scaledH=h*s;
+  if(scaledH<avail) inner.style.marginTop=((avail-scaledH)/2)+'px';
+}
+window.addEventListener('resize',fitVisual);
+
+// แบ่งข้อความเป็นวรรคสั้นๆ เพื่อให้มีจังหวะหยุดหายใจ ฟังเหมือนคนพูด
+function chunkThai(text){
+  const parts=text.split(/\s+/).filter(Boolean);
+  const chunks=[]; let cur='';
+  for(const p of parts){
+    cur = cur ? cur+' '+p : p;
+    if(cur.length>=16){ chunks.push(cur); cur=''; }   // จบวรรคเมื่อยาวพอ แล้วหยุดจังหวะ
   }
-  view.innerHTML=html;
-
-  bar.style.width=(i/(STEPS.length-1))*100+'%';
-  phaseLabel.textContent=s.phase;
-  if(s.intro){stepCur.textContent='เริ่ม';stepTot.textContent='';}
-  else if(s.end){stepCur.textContent='จบ';stepTot.textContent='';}
-  else {stepCur.textContent='ขั้น '+(numbered.indexOf(i)+1);stepTot.textContent=' / '+numbered.length;}
-
-  btnPrev.disabled=(i===0);
-  if(i===0){btnNext.textContent='เริ่มดูคู่มือ →';btnNext.classList.add('start');}
-  else if(i===STEPS.length-1){btnNext.textContent='↑ กลับไปเริ่มต้น';btnNext.classList.remove('start');}
-  else {btnNext.textContent='ถัดไป ›';btnNext.classList.remove('start');}
-
-  window.scrollTo(0,0);
-  buildMenu();
+  if(cur) chunks.push(cur);
+  return chunks;
 }
-function go(d){
-  if(i===STEPS.length-1 && d>0){i=0;render();return;}
-  const ni=i+d; if(ni<0||ni>=STEPS.length) return; i=ni; render();
+function speak(text,onDone){
+  text=applyParticle(text);
+  if(muted || !window.speechSynthesis || !thVoice){ advanceTimer=setTimeout(onDone, estDur(text)); return; }
+  speechSynthesis.cancel();
+  const sid=playId;                       // ผูกกับรอบเล่นปัจจุบัน (กดหยุด/เปลี่ยนฉาก = ยกเลิก)
+  const chunks=chunkThai(text);
+  let i=0;
+  const speakNext=()=>{
+    if(sid!==playId || !playing){ return; }
+    if(i>=chunks.length){ onDone(); return; }
+    const u=new SpeechSynthesisUtterance(chunks[i]);
+    u.voice=thVoice; u.lang='th-TH';
+    u.rate=Math.max(0.55,Math.min(1.25,0.82*rate));   // อ่านช้าลง ฟังชัดขึ้น
+    u.pitch=1;
+    const advance=()=>{ if(sid!==playId || !playing) return; i++; advanceTimer=setTimeout(speakNext, 230/rate); };
+    u.onend=advance;
+    u.onerror=advance;
+    speechSynthesis.speak(u);
+  };
+  advanceTimer=setTimeout(speakNext,80);
 }
-function buildMenu(){
-  document.getElementById('menuList').innerHTML = STEPS.map((s,idx)=>{
-    if(s.intro) return `<div class="mitem ${idx===i?'active':''}" onclick="jump(${idx})"><span class="mn">●</span><span class="ml">หน้าแรก</span></div>`;
-    if(s.end) return `<div class="mitem ${idx===i?'active':''}" onclick="jump(${idx})"><span class="mn">✓</span><span class="ml">สรุป / เคล็ดลับ</span></div>`;
-    const n=numbered.indexOf(idx)+1;
-    return `<div class="mitem ${idx===i?'active':''}" onclick="jump(${idx})"><span class="mn">${n}</span><span class="ml">${s.short} <small>${s.phase}</small></span></div>`;
-  }).join('');
+function playFrom(i){
+  clearTimeout(advanceTimer);
+  idx=Math.max(0,Math.min(i,SCENES.length-1));
+  render();
+  const myId=++playId, sc=SCENES[idx];
+  speak(sc.say, ()=>{
+    if(myId!==playId||!playing) return;
+    if(idx<SCENES.length-1){ advanceTimer=setTimeout(()=>{ if(myId===playId&&playing) playFrom(idx+1); }, 550); }
+    else finish();
+  });
 }
-function jump(idx){i=idx;render();closeMenu();}
-function openMenu(){document.getElementById('scrim').classList.add('on');document.getElementById('drawer').classList.add('on');}
-function closeMenu(){document.getElementById('scrim').classList.remove('on');document.getElementById('drawer').classList.remove('on');}
+function finish(){ playing=false; updateUI(); }
 
-let tx=0;
-document.addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:true});
-document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>60){if(dx<0)go(1);else go(-1);}},{passive:true});
+function startVideo(){ $('overlay').classList.add('hide'); playing=true; playFrom(0); }
+function togglePlay(){
+  if(playing){ playing=false; stopAll(); updateUI(); }
+  else { playing=true; if(idx>=SCENES.length-1) idx=0; playFrom(idx); }
+}
+function next(){ stopAll(); const n=Math.min(idx+1,SCENES.length-1); if(playing) playFrom(n); else {idx=n;render();} }
+function prev(){ stopAll(); const n=Math.max(idx-1,0); if(playing) playFrom(n); else {idx=n;render();} }
+function restart(){ stopAll(); if(playing) playFrom(0); else {idx=0;render();} }
+function toggleMute(){ muted=!muted; updateUI(); stopAll(); if(playing) playFrom(idx); }
+function cycleSpeed(){ rate=RATES[(RATES.indexOf(rate)+1)%RATES.length]; $('spdBtn').textContent=rate+'x'; stopAll(); if(playing) playFrom(idx); }
+
+function updateUI(){
+  $('playBtn').textContent = playing ? '⏸' : '▶';
+  $('muteBtn').textContent = muted ? '🔇' : '🔊';
+}
 
 render();
 </script>
