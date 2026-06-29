@@ -342,6 +342,7 @@ function chunkThai(text){
 }
 function speak(text,onDone){
   text=applyParticle(text);
+  if(!thVoice) loadVoices();   // เผื่อเสียงเพิ่งโหลดเสร็จ ลองหาเสียงไทยอีกครั้ง
   if(muted || !window.speechSynthesis || !thVoice){ advanceTimer=setTimeout(onDone, estDur(text)); return; }
   speechSynthesis.cancel();
   const sid=playId;                       // ผูกกับรอบเล่นปัจจุบัน (กดหยุด/เปลี่ยนฉาก = ยกเลิก)
@@ -359,7 +360,7 @@ function speak(text,onDone){
     u.onerror=advance;
     speechSynthesis.speak(u);
   };
-  advanceTimer=setTimeout(speakNext,80);
+  speakNext();   // เริ่มทันที (อยู่ในจังหวะการกดปุ่ม — สำคัญสำหรับ iOS)
 }
 function playFrom(i){
   clearTimeout(advanceTimer);
@@ -374,7 +375,24 @@ function playFrom(i){
 }
 function finish(){ playing=false; updateUI(); }
 
-function startVideo(){ $('overlay').classList.add('hide'); playing=true; playFrom(0); }
+function startVideo(){
+  $('overlay').classList.add('hide');
+  // ปลดล็อกเสียงในจังหวะที่ผู้ใช้กดปุ่ม (จำเป็นบน iOS/บางเบราว์เซอร์)
+  try{
+    if(window.speechSynthesis){
+      loadVoices();
+      speechSynthesis.cancel();
+      const warm=new SpeechSynthesisUtterance('​');
+      warm.volume=0; warm.lang='th-TH'; if(thVoice) warm.voice=thVoice;
+      speechSynthesis.speak(warm);
+    }
+  }catch(e){}
+  if(!thVoice){
+    const sub=$('sub');
+    if(sub) sub.insertAdjacentHTML('beforebegin','<div id="novoice" style="text-align:center;font-size:11.5px;color:#ffd9a6;margin-bottom:7px">⚠️ เครื่องนี้ไม่มีเสียงพากย์ไทย — เล่นแบบมีคำบรรยาย (ดูวิธีเพิ่มเสียงด้านล่าง)</div>');
+  }
+  playing=true; playFrom(0);
+}
 function togglePlay(){
   if(playing){ playing=false; stopAll(); updateUI(); }
   else { playing=true; if(idx>=SCENES.length-1) idx=0; playFrom(idx); }
